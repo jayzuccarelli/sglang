@@ -346,6 +346,11 @@ class LoRAManager:
                 f"Failed to load {lora_ref.lora_name} because LoRA serving currently doesn't support DoRA adapters"
             )
 
+        if lora_config.bias != "none":
+            raise ValueError(
+                f"Failed to load {lora_ref.lora_name} because LoRA serving currently doesn't support adapters with trained biases (bias={lora_config.bias!r})"
+            )
+
         # Check if this LoRA adapter is already loaded
         for existing_lora_ref in self.lora_refs.values():
             if lora_ref.lora_name == existing_lora_ref.lora_name:
